@@ -1,26 +1,31 @@
-import React from "react";
+import React,{useState} from "react";
 
 function Button(props) {
-  // function for get the time
-    function Time() {
-    const d = new Date();
-    const time = d.toLocaleTimeString();
-    console.log(time);
-  }
-
+  const [data,setData] = useState({
+    start:"",
+    end:"",
+    startSave:"",
+    endSave:""
+  })
   //function for API fetch
     const renderUsers = async () => {
     const url = `https://jsonplaceholder.typicode.com/${props.value}`;
-     Time();
+    let startTime =  new Date().toLocaleTimeString();
     let data = await fetch(url);
 
     let parsedData = await data.json();
- Time();
+    let endTime =  new Date().toLocaleTimeString();
     console.log(parsedData);
     const myJSON = JSON.stringify(parsedData);
-    Time();
+    let startSaveTime =  new Date().toLocaleTimeString();
     localStorage.setItem(props.localName, myJSON);
-    Time();
+    let endSaveTime =  new Date().toLocaleTimeString();
+    setData({
+      start:startTime,
+      end:endTime,
+      startSave:startSaveTime,
+      endSave:endSaveTime
+    })
   };
   return (
     <button
